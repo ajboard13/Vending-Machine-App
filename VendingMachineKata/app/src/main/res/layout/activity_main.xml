@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.user.vendingmachinekata.MainActivity"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/coin_return"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:onClick="giveChange"
+                android:text="Return\nCoins" />
+
+            <Button
+                android:id="@+id/dispense_item"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:onClick="dispenseItem"
+                android:text="Dispense" />
+
+            <Button
+                android:id="@+id/empty_coins"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:onClick="emptyCoins"
+                android:text="Empty\nCoins" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@drawable/vendingmachine"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/candy_row"
+                android:layout_marginTop="43sp"
+                android:layout_marginLeft="50sp">
+                <ImageView
+                    android:id="@+id/candyBar1"
+                    android:layout_width="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    app:srcCompat="@drawable/candy" />
+                <ImageView
+                    android:id="@+id/candyBar2"
+                    android:layout_width="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    app:srcCompat="@drawable/candy" />
+
+                <ImageView
+                    android:id="@+id/candyBar3"
+                    android:layout_width="16sp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/candy" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50sp"
+                android:id="@+id/chip_row"
+                android:layout_below="@+id/candy_row">
+                <ImageView
+                    android:id="@+id/chips1"
+                    android:layout_width="25sp"
+                    android:layout_height="40sp"
+                    android:layout_marginRight="12dp"
+                    app:srcCompat="@drawable/chips" />
+
+                <ImageView
+                    android:id="@+id/chips3"
+                    android:layout_width="25sp"
+                    android:layout_height="40sp"
+                    android:layout_marginRight="12dp"
+                    app:srcCompat="@drawable/chips" />
+
+                <ImageView
+                    android:id="@+id/chips2"
+                    android:layout_width="25sp"
+                    android:layout_height="40sp"
+                    android:layout_marginRight="12dp"
+                    app:srcCompat="@drawable/chips" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50sp"
+                android:layout_below="@+id/chip_row">
+                <ImageView
+                    android:id="@+id/soda1"
+                    android:layout_width="23sp"
+                    android:layout_height="40sp"
+                    android:layout_marginRight="12dp"
+                    app:srcCompat="@drawable/soda" />
+
+                <ImageView
+                    android:id="@+id/soda3"
+                    android:layout_width="23sp"
+                    android:layout_height="40sp"
+                    android:layout_marginRight="12dp"
+                    app:srcCompat="@drawable/soda" />
+
+                <ImageView
+                    android:id="@+id/soda2"
+                    android:layout_width="23sp"
+                    android:layout_height="40sp"
+                    app:srcCompat="@drawable/soda" />
+            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/candy_button"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:onClick="chooseCandy"
+                android:text="Candy" />
+
+            <Button
+                android:id="@+id/chips_button"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:onClick="chooseChips"
+                android:text="Chips" />
+            <Button
+                android:id="@+id/soda_button"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:onClick="chooseSoda"
+                android:text="Soda" />
+        </LinearLayout>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_light"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/main_display"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:padding="10dp"
+            android:text="Welcome to Aaron's Vending Machine, \nplease select an item."
+            android:textSize= "15sp" />
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="2">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="Total: \n$0.00"
+                android:textSize="20sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0">
+
+        <ImageButton
+            android:id="@+id/penny_button"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:onClick="insertPenny"
+            app:srcCompat="@drawable/penny" />
+
+        <ImageButton
+            android:id="@+id/nickle_button"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:onClick="insertNickle"
+            app:srcCompat="@drawable/nickle" />
+
+
+        <ImageButton
+            android:id="@+id/dime_button"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:onClick="insertDime"
+            app:srcCompat="@drawable/dime" />
+
+
+        <ImageButton
+            android:id="@+id/quarter_button"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/quarter"
+            android:onClick="insertQuarter"/>
+    </LinearLayout>
+</LinearLayout>
