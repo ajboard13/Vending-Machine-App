@@ -72,9 +72,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void dispenseItem(View view) {
         if (itemChosen != null) {
-            if (vm.getAmountNeeded() <= vm.getValueOfMoneyInserted()) {
-                itemChosen.setVisibility(View.INVISIBLE);
-                itemChosen = null;
+            if (vm.getIfExactChangeIsNeeded() == "yes") {
+                if (vm.getValueOfMoneyInserted() == vm.getAmountNeeded()) {
+                    if (vm.getAmountNeeded() <= vm.getValueOfMoneyInserted()) {
+                        itemChosen.setVisibility(View.INVISIBLE);
+                        itemChosen = null;
+                    }
+                }
+            }else{
+                if (vm.getAmountNeeded() <= vm.getValueOfMoneyInserted()) {
+                    itemChosen.setVisibility(View.INVISIBLE);
+                    itemChosen = null;
+                }
             }
         }
         String message = vm.dispenseItem();
@@ -188,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                     message = "Candy available.\n";
                     itemChosen = candy[2];
                 } else {
-                    message = "Sorry, candy are out of stock\n";
+                    message = "Sorry, candy is out of stock\n";
                     itemChosen = null;
                 }
             }

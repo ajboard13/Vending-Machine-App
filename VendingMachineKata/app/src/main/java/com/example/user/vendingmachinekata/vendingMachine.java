@@ -62,11 +62,33 @@ class vendingMachine {
         if (itemChosen == null) {
             message = "No Item Selected.";
         } else {
-            if (ValueOfMoneyInserted >= amountNeeded) {
-                message = itemChosen + " has been dispensed. Enjoy!\n";
-                message += giveChange();
-                itemChosen = null;
+            if (getIfExactChangeIsNeeded() == "yes"){
+                if (ValueOfMoneyInserted > amountNeeded) {
+                    message = "Please use exact change. No change is available. Coins returned\n";
+                    message += returnCoins();
+                }else {
+                    if (ValueOfMoneyInserted >= amountNeeded) {
+                        message = itemChosen + " has been dispensed. Enjoy!\n";
+                        message += giveChange();
+                        itemChosen = null;
+                    }
+                }
+            }else {
+                if (ValueOfMoneyInserted >= amountNeeded) {
+                    message = itemChosen + " has been dispensed. Enjoy!\n";
+                    message += giveChange();
+                    itemChosen = null;
+                }
             }
+        }
+        return message;
+    }
+
+    public String getIfExactChangeIsNeeded(){
+        String message = "no";
+        if (coinAcceptor.determineIfExactChangeIsNeeded() == "\n" +
+                "Exact change is needed"){
+            message = "yes";
         }
         return message;
     }
