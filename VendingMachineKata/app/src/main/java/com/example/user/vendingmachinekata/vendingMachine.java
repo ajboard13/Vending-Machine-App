@@ -1,91 +1,109 @@
 package com.example.user.vendingmachinekata;
 
-public class vendingMachine {
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+class vendingMachine {
     private static double ValueOfMoneyInserted;
-    private double amountNeeded =0;
+    private CoinAcceptor coinAcceptor = new CoinAcceptor();
+    private double amountNeeded;
     private String itemChosen;
 
-    CoinAcceptor coinAcceptor = new CoinAcceptor();
-
-    public void insertQuarter(){
-        Coin quarter = new Coin(5.0,1.25);
-        double value = acceptCoin(quarter);
+    void insertQuarter() {
+        Coin coin = new Coin(5.0, 1.25);
+        double value = acceptCoin(coin);
         ValueOfMoneyInserted += value;
-        System.out.printf("Total: $%.2f\n" , ValueOfMoneyInserted);
     }
 
-    public void chooseChips(){
+    String chooseChips() {
         amountNeeded = 0.5;
         itemChosen = "Chips";
-        coinAcceptor.determineIfExactChangeIsNeeded();
-        System.out.printf("Chips : $%.2f", amountNeeded);
-        System.out.println();
+        return itemChosen + " selected." + coinAcceptor.determineIfExactChangeIsNeeded();
     }
 
-    public void chooseCandy(){
+    String chooseCandy() {
         amountNeeded = 0.65;
         itemChosen = "Candy";
-        coinAcceptor.determineIfExactChangeIsNeeded();
-        System.out.printf("Candy : $%.2f", amountNeeded);
-        System.out.println();
+        return itemChosen + " selected." + coinAcceptor.determineIfExactChangeIsNeeded();
     }
-    public void chooseSoda(){
+
+    String chooseSoda() {
         amountNeeded = 1.00;
         itemChosen = "Soda";
-        coinAcceptor.determineIfExactChangeIsNeeded();
-        System.out.printf("Soda : $%.2f", amountNeeded);
-        System.out.println();
+        return itemChosen + " selected." + coinAcceptor.determineIfExactChangeIsNeeded();
     }
 
-    public void insertDime(){
-        Coin quarter = new Coin(2.0,0.5);
-        double value = acceptCoin(quarter);
-        ValueOfMoneyInserted = ValueOfMoneyInserted+ value;
-        System.out.printf("Total: $%.2f\n" , ValueOfMoneyInserted);
+    void insertDime() {
+        Coin coin = new Coin(2.0, 0.5);
+        double value = acceptCoin(coin);
+        ValueOfMoneyInserted += value;
     }
 
-    public void insertNickle(){
-        Coin quarter = new Coin(4.0,1.0);
-        double value = acceptCoin(quarter);
-        ValueOfMoneyInserted = ValueOfMoneyInserted+ value;
-        System.out.printf("Total: $%.2f\n" , ValueOfMoneyInserted);
+    void insertNickle() {
+        Coin coin = new Coin(4.0, 1.0);
+        double value = acceptCoin(coin);
+        ValueOfMoneyInserted += value;
     }
 
-    public void insertPenny(){
-        Coin quarter = new Coin(3.0,.75);
-        double value = acceptCoin(quarter);
-        ValueOfMoneyInserted = ValueOfMoneyInserted+ value;
-        System.out.printf("Total: $%.2f\n" , ValueOfMoneyInserted);
-    }
-    public double acceptCoin(Coin coin){
-        double coinValue = this.coinAcceptor.DetermineCoinValue(coin);
-        return coinValue;
-    }
-    public void payForItem(){
-        if(amountNeeded > ValueOfMoneyInserted){
-        dispenseItem();
-        }
+    String insertPenny() {
+        Coin coin = new Coin(3.0, .75);
+        double value = acceptCoin(coin);
+        ValueOfMoneyInserted += value;
+        return coinAcceptor.getMessage();
     }
 
-    public String dispenseItem() {
-        String message = null;
-        if (ValueOfMoneyInserted >= amountNeeded) {
-            message = itemChosen + " has been dispensed. Enjoy!";
-            System.out.printf("%s has been dispensed. Enjoy!\n", itemChosen);
-            System.out.println();
-            giveChange();
+    private double acceptCoin(Coin coin) {
+        return this.coinAcceptor.DetermineCoinValue(coin);
+    }
+
+    String dispenseItem() {
+        String message = "Not enough money inserted";
+        ValueOfMoneyInserted = round(ValueOfMoneyInserted, 2);
+        if (itemChosen == null) {
+            message = "No Item Selected.";
+        } else {
+            if (ValueOfMoneyInserted >= amountNeeded) {
+                message = itemChosen + " has been dispensed. Enjoy!\n";
+                message += giveChange();
+                itemChosen = null;
+            }
         }
         return message;
     }
 
-    public void giveChange(){
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    private String giveChange() {
         double changeNeeded = ValueOfMoneyInserted - amountNeeded;
-        coinAcceptor.giveChange(changeNeeded);
+        String changeMessage = coinAcceptor.giveChange(changeNeeded);
         ValueOfMoneyInserted = 0;
+        amountNeeded = 0;
+        return changeMessage;
     }
-    public String emptyCoins(){
+
+    String returnCoins() {
+        double coinsToReturn = ValueOfMoneyInserted;
+        String changeMessage = coinAcceptor.giveChange(coinsToReturn);
+        ValueOfMoneyInserted = 0;
+        return changeMessage;
+    }
+
+    String emptyCoins() {
         coinAcceptor.emptyCoins();
-        String message = "Coins emptied from machine. Exact change may be requested";
-        return message;
+        return "Coins emptied from machine. Exact change may be requested";
+    }
+
+    double getAmountNeeded() {
+        return amountNeeded;
+    }
+
+    double getValueOfMoneyInserted() {
+        return ValueOfMoneyInserted;
     }
 }
