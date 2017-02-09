@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">VendingMachineKata</string>
+    <string name="return_ncoins">Return\nCoins</string>
+    <string name="dispense">Dispense</string>
+    <string name="empty_ncoins">Empty\nCoins</string>
+    <string name="candy">Candy</string>
+    <string name="chips">Chips</string>
+    <string name="soda">Soda</string>
 </resources>
